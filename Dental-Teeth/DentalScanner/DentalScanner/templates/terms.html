@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Terms of Service - Dental Scanner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+      .terms-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      
+      @media (max-width: 768px) {
+        .terms-container {
+          margin: 10px;
+          padding: 15px;
+          border-radius: 8px;
+        }
+        .accept-btn, .decline-btn {
+          width: 100%;
+          margin: 10px 0;
+          padding: 15px;
+          font-size: 16px;
+        }
+        .decline-btn {
+          margin-left: 0;
+        }
+      }
+      .terms-header {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #2c3e50;
+      }
+      .terms-content {
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 20px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        background: #f9f9f9;
+        line-height: 1.6;
+      }
+      .terms-section {
+        margin-bottom: 25px;
+      }
+      .terms-section h3 {
+        color: #34495e;
+        margin-bottom: 10px;
+      }
+      .accept-section {
+        text-align: center;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      .checkbox-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 0;
+        gap: 10px;
+      }
+      .checkbox-container input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+      }
+      .checkbox-container label {
+        cursor: pointer;
+        font-weight: 500;
+      }
+      .accept-btn {
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .accept-btn:hover:not(:disabled) {
+        background: #2980b9;
+      }
+      .accept-btn:disabled {
+        background: #bdc3c7;
+        cursor: not-allowed;
+      }
+      .decline-btn {
+        background: #e74c3c;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+        margin-left: 15px;
+      }
+      .decline-btn:hover {
+        background: #c0392b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="terms-container">
+      <div class="terms-header">
+        <h1>🦷 Dental Scanner</h1>
+        <h2>Terms of Service</h2>
+        <p>Please read and accept our terms before using the service</p>
+      </div>
+
+      <div class="terms-content">
+        <div class="terms-section">
+          <h3>1. Medical Disclaimer</h3>
+          <p><strong>IMPORTANT:</strong> This dental scanner is a diagnostic aid tool only and is NOT a substitute for professional medical advice, diagnosis, or treatment. The results provided are for informational purposes only and should not be used as the sole basis for medical decisions.</p>
+          <p>Always seek the advice of qualified healthcare professionals regarding any dental or medical concerns. Never disregard professional medical advice or delay seeking treatment based on information provided by this tool.</p>
+        </div>
+
+        <div class="terms-section">
+          <h3>2. Accuracy and Limitations</h3>
+          <p>While our AI-powered system strives for accuracy, it may not detect all dental issues or may occasionally provide false positives. The system is designed to assist with preliminary screening and should not replace regular dental checkups.</p>
+          <p>Factors such as image quality, lighting, angle, and individual variations may affect the accuracy of results.</p>
+        </div>
+
+        <div class="terms-section">
+          <h3>3. Privacy and Data Use</h3>
+          <p>By using this service, you acknowledge that:</p>
+          <ul>
+            <li>Uploaded images and analysis results may be stored temporarily for processing purposes</li>
+            <li>Data may be used to improve our AI models and service quality</li>
+            <li>We implement reasonable security measures to protect your data</li>
+            <li>You should not upload images containing personally identifiable information beyond dental imagery</li>
+          </ul>
+        </div>
+
+        <div class="terms-section">
+          <h3>4. User Responsibilities</h3>
+          <p>Users agree to:</p>
+          <ul>
+            <li>Use the service responsibly and for its intended purpose</li>
+            <li>Not upload inappropriate, offensive, or non-dental related content</li>
+            <li>Understand that this is a screening tool, not a diagnostic service</li>
+            <li>Consult with dental professionals for proper diagnosis and treatment</li>
+          </ul>
+        </div>
+
+        <div class="terms-section">
+          <h3>5. Emergency Situations</h3>
+          <p><strong>In case of dental emergencies, severe pain, or urgent symptoms, seek immediate professional medical attention. Do not rely on this tool for emergency situations.</strong></p>
+        </div>
+
+        <div class="terms-section">
+          <h3>6. Limitation of Liability</h3>
+          <p>This service is provided "as is" without warranties. We are not liable for any damages arising from the use of this tool or reliance on its results. Users assume all risks associated with using this diagnostic aid.</p>
+        </div>
+
+        <div class="terms-section">
+          <h3>7. Updates and Changes</h3>
+          <p>We reserve the right to update these terms at any time. Continued use of the service constitutes acceptance of any changes.</p>
+        </div>
+      </div>
+
+      <div class="accept-section">
+        <form id="termsForm" method="POST" action="/accept-terms">
+          <input type="hidden" name="accepted" value="true" />
+          <div class="checkbox-container">
+            <input type="checkbox" id="acceptTerms" name="acceptTerms" required />
+            <label for="acceptTerms">I have read and agree to the Terms of Service</label>
+          </div>
+          
+          <div class="checkbox-container">
+            <input type="checkbox" id="medicalDisclaimer" name="medicalDisclaimer" required />
+            <label for="medicalDisclaimer">I understand this is not a substitute for professional medical advice</label>
+          </div>
+
+          <div style="margin-top: 30px;">
+            <button id="acceptBtn" type="submit" class="accept-btn" disabled>Accept & Continue</button>
+            <button id="declineBtn" type="button" class="decline-btn">Decline</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const acceptTermsCheckbox = document.getElementById('acceptTerms');
+      const medicalDisclaimerCheckbox = document.getElementById('medicalDisclaimer');
+      const acceptBtn = document.getElementById('acceptBtn');
+      const declineBtn = document.getElementById('declineBtn');
+      const termsForm = document.getElementById('termsForm');
+
+      function updateAcceptButton() {
+        const bothChecked = acceptTermsCheckbox.checked && medicalDisclaimerCheckbox.checked;
+        acceptBtn.disabled = !bothChecked;
+        console.log('Checkboxes updated:', {
+          terms: acceptTermsCheckbox.checked,
+          medical: medicalDisclaimerCheckbox.checked,
+          buttonEnabled: bothChecked
+        });
+      }
+
+      acceptTermsCheckbox.addEventListener('change', updateAcceptButton);
+      medicalDisclaimerCheckbox.addEventListener('change', updateAcceptButton);
+
+      // Detect mobile device
+      function isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+               window.innerWidth <= 768;
+      }
+
+      // Handle form submission - show loading state but let form submit naturally
+      termsForm.addEventListener('submit', (e) => {
+        console.log('Form submission started');
+        console.log('Is mobile:', isMobile());
+        console.log('User agent:', navigator.userAgent);
+        
+        if (acceptTermsCheckbox.checked && medicalDisclaimerCheckbox.checked) {
+          // Show loading state
+          acceptBtn.disabled = true;
+          acceptBtn.textContent = 'Processing...';
+          console.log('Form is valid, allowing submission');
+          
+          // For mobile devices, add a small delay to ensure form data is processed
+          if (isMobile()) {
+            e.preventDefault();
+            console.log('Mobile detected, using delayed redirect');
+            setTimeout(() => {
+              console.log('Submitting form for mobile');
+              termsForm.submit();
+            }, 200);
+          }
+          // For desktop, let the form submit naturally
+        } else {
+          e.preventDefault();
+          alert('Please check both boxes to continue.');
+          console.log('Form submission prevented - boxes not checked');
+        }
+      });
+
+      declineBtn.addEventListener('click', () => {
+        alert('You must accept the terms to use this service.');
+      });
+
+      // Debug: Log when page loads
+      console.log('Terms page JavaScript loaded');
+    </script>
+  </body>
+</html>
