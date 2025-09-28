@@ -9,7 +9,7 @@ import shutil
 import mimetypes
 from email.message import EmailMessage
 from pathlib import Path
-from flask import Flask, request, render_template, redirect, url_for, send_file, flash, session, jsonify
+from flask import Flask, request, render_template, redirect, url_for, send_file, send_from_directory, flash, session, jsonify
 from datetime import datetime
 
 APP_ROOT = Path(__file__).parent.resolve()
@@ -446,36 +446,68 @@ def upload():
                     "Content-Type": "application/json"
                 }
 
-                resp = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=15)
-                if resp.status_code == 200:
-                    j = resp.json()
-                    # Safely extract assistant text
-                    ai_text = None
+                # Use configurable timeout/retries/backoff to reduce transient ReadTimeouts
+                OPENAI_TIMEOUT = int(os.environ.get('OPENAI_TIMEOUT', '30'))
+                OPENAI_RETRIES = int(os.environ.get('OPENAI_RETRIES', '3'))
+                OPENAI_BACKOFF_BASE = float(os.environ.get('OPENAI_BACKOFF_BASE', '1.5'))
+
+                resp = None
+                last_exc = None
+                for attempt in range(1, OPENAI_RETRIES + 1):
                     try:
-                        ai_text = j['choices'][0]['message']['content']
-                    except Exception:
-                        ai_text = None
-                    if ai_text:
-                        ai_summary = ai_text.strip()
-                        # Save summary next to the uploaded file for records
-                        try:
-                            safe_name = os.path.basename(file.filename)
-                            summary_path = UPLOAD_DIR / (safe_name + '.summary.txt')
-                            with open(summary_path, 'w', encoding='utf-8') as sf:
-                                sf.write(ai_summary)
-                        except Exception:
-                            # non-fatal: ignore file write issues
-                            pass
-                    else:
-                        ai_error = 'No assistant content returned'
+                        print(f"OpenAI request attempt {attempt}/{OPENAI_RETRIES} (timeout={OPENAI_TIMEOUT}s)")
+                        resp = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=OPENAI_TIMEOUT)
+                        break
+                    except requests.exceptions.RequestException as e:
+                        last_exc = e
+                        print(f"OpenAI request attempt {attempt} failed: {str(e)}")
+                        if attempt < OPENAI_RETRIES:
+                            try:
+                                import time as _time
+                                sleep_sec = OPENAI_BACKOFF_BASE ** (attempt - 1)
+                                print(f"OpenAI retrying after {sleep_sec:.1f}s")
+                                _time.sleep(sleep_sec)
+                            except Exception:
+                                pass
+
+                if resp is None:
+                    ai_error = f'OpenAI request failed after {OPENAI_RETRIES} attempts: {str(last_exc)}'
                 else:
-                    ai_error = f'OpenAI API error {resp.status_code}: {resp.text[:400]}'
+                    if resp.status_code == 200:
+                        j = resp.json()
+                        # Safely extract assistant text
+                        ai_text = None
+                        try:
+                            ai_text = j['choices'][0]['message']['content']
+                        except Exception:
+                            ai_text = None
+                        if ai_text:
+                            ai_summary = ai_text.strip()
+                            # Save summary next to the uploaded file for records
+                            try:
+                                safe_name = os.path.basename(file.filename)
+                                summary_path = UPLOAD_DIR / (safe_name + '.summary.txt')
+                                with open(summary_path, 'w', encoding='utf-8') as sf:
+                                    sf.write(ai_summary)
+                            except Exception:
+                                # non-fatal: ignore file write issues
+                                pass
+                        else:
+                            ai_error = 'No assistant content returned'
+                    else:
+                        ai_error = f'OpenAI API error {resp.status_code}: {resp.text[:400]}'
             else:
                 ai_error = 'OPENAI_API_KEY not set; skipping AI summary'
         except Exception as e:
             ai_error = f'AI summarization failed: {str(e)[:300]}'
 
-        out = {"success": True, "result_url": url_for('result'), "uploaded_filename": file.filename}
+        # Provide both the annotated result URL and a direct URL to the original uploaded file
+        out = {
+            "success": True,
+            "result_url": url_for('result'),
+            "original_url": url_for('uploaded_file', filename=file.filename),
+            "uploaded_filename": file.filename
+        }
         if ai_summary:
             out['ai_summary'] = ai_summary
         else:
@@ -492,6 +524,13 @@ def result():
         flash('No output image found')
         return redirect(url_for('index'))
     return send_file(out, mimetype='image/jpeg')
+
+
+@app.route('/uploads/<path:filename>')
+def uploaded_file(filename):
+    """Serve files from the uploads directory (original uploaded images and sidecar files)."""
+    # Use send_from_directory for safety
+    return send_from_directory(str(UPLOAD_DIR), filename)
 
 
 # (Concerns are saved as part of the upload form under uploads/<filename>.concern.txt)

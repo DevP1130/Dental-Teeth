@@ -81,7 +81,16 @@
 
       <div id="result" style="display:none;">
         <h2>Result</h2>
-        <img id="resultImg" src="" alt="output">
+        <div class="result-row" style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;">
+          <div style="flex:1;min-width:220px;">
+            <div style="font-weight:600;margin-bottom:6px">Annotated image</div>
+            <img id="resultImg" src="" alt="annotated output" style="max-width:100%;border-radius:8px;"/>
+          </div>
+          <div style="flex:1;min-width:220px;">
+            <div style="font-weight:600;margin-bottom:6px">Original upload</div>
+            <img id="originalImg" src="" alt="original upload" style="max-width:100%;border-radius:8px;border:1px solid rgba(2,6,23,0.06)"/>
+          </div>
+        </div>
         <div id="aiSummary" class="ai-summary" style="display:none;margin-top:12px"></div>
         <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
           <button id="sendDoctorBtn" class="btn-primary">Send to doctor</button>

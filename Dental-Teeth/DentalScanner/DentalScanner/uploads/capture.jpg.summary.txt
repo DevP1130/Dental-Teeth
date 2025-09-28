@@ -1,12 +1,13 @@
 Summary:
-I’m unable to view the uploaded image (capture.jpg) from this chat, so I can’t identify specific findings. Common things I would look for in a photo are cavities/dark spots, gum redness/bleeding, plaque/tartar buildup, chips/fractures, or misalignment. If you describe symptoms (pain, sensitivity, bleeding) I can narrow this.
+- Sharp pain from cold foods is most commonly dentin hypersensitivity from exposed dentin/root (recession, abrasion, erosion) but can also come from a cracked tooth, caries with exposed dentin, or developing pulpitis if the stimulus causes lingering pain.  
+- A failing or leaking filling can produce the same symptom.  
+- If the pain lingers after the cold or occurs spontaneously, that increases likelihood of pulp involvement.
 
-Risk:
-Medium — because I can’t evaluate the photo, there’s uncertainty. If you have pain, swelling, pus, increasing sensitivity, or persistent bleeding the risk is high and needs prompt care; if you have no symptoms and the photo was for a routine check, risk is likely low.
+Risk: Medium
+- Medium because many cases are benign (surface sensitivity) and respond to simple measures, but persistent or lingering sharp pain often indicates deeper decay or pulpal inflammation that may require a filling or root canal.  
+- Escalate to High if you have constant pain, swelling, fever, or trouble breathing/ swallowing — these are signs of infection and need urgent care.
 
 Actions:
-1. Re-upload the photo (clear, well-lit, close-up of the problem area; one with lips retracted and one with teeth biting together).  
-2. Tell me any symptoms (pain, sensitivity to hot/cold, bleeding, bad taste, swelling).  
-3. If you have severe pain, swelling, fever, or pus, seek urgent dental care or ER now.  
-4. For routine issues, schedule a dental exam/cleaning within 4–8 weeks.  
-5. If you want, re-upload and I’ll give a photo-based assessment and next steps.
+- Short term: avoid cold triggers, chew on the other side, use desensitizing toothpaste twice daily (potassium nitrate), rinse with fluoride mouthwash, and take OTC pain relievers (ibuprofen/acetaminophen per directions) if needed.  
+- Make a dental appointment within 1–2 weeks for clinical exam and radiographs; the dentist will do percussion/bite tests and decide on restoration, repair, or endodontic treatment.  
+- Seek emergency dental/medical care immediately if pain becomes constant, swelling develops, or you have fever or difficulty breathing/swallowing.

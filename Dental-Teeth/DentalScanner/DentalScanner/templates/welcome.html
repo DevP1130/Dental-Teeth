@@ -18,7 +18,10 @@
         <input id="firstName" name="firstName" placeholder="First name" required />
         <input id="lastName" name="lastName" placeholder="Last name" required />
         <input id="provider" name="provider" placeholder="Healthcare provider" required />
-        <input id="dob" name="dob" type="date" placeholder="Date of birth" required />
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <label for="dob" style="font-size:14px;color:#555;font-weight:500;">Your birthday</label>
+          <input id="dob" name="dob" type="date" required />
+        </div>
   <input id="patientEmail" name="patientEmail" type="email" placeholder="Your email" required />
   <input id="doctorEmail" name="doctorEmail" type="email" placeholder="Doctor's email" required />
         <input type="hidden" id="termsAcceptedField" name="terms_accepted" value="false" />

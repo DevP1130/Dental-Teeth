@@ -166,8 +166,20 @@ if (uploadBtn) uploadBtn.addEventListener('click', async ()=>{
     // Complete loading bar
     hideLoadingBar(progressData)
     
-    // show the result image
-    if (resultImg) resultImg.src = data.result_url + '?_=' + Date.now()
+    // show the annotated result image
+    if (resultImg && data.result_url) resultImg.src = data.result_url + '?_=' + Date.now()
+    // show the original uploaded image (if provided)
+    const originalImg = document.getElementById('originalImg')
+    if (originalImg){
+      if (data.original_url){
+        originalImg.src = data.original_url + '?_=' + Date.now()
+      } else if (data.uploaded_filename){
+        // fallback: construct uploads URL
+        originalImg.src = '/uploads/' + encodeURIComponent(data.uploaded_filename) + '?_=' + Date.now()
+      } else {
+        originalImg.src = ''
+      }
+    }
     // store uploaded filename for reference
     if (resultDiv) {
       resultDiv.dataset.uploadedFilename = data.uploaded_filename || ''

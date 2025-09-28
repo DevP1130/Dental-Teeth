@@ -35,8 +35,8 @@ h2{font-size:20px;margin:8px 0 12px;color:#0b1320}
 .ai-summary h3{margin:0 0 6px;font-size:16px}
 .ai-summary pre{white-space:pre-wrap;font-family:inherit;margin:0}
 
-/* Disclaimer shown below AI-generated summaries */
-.ai-disclaimer{margin-top:10px;font-size:13px;color:#475569;background:transparent;font-style:italic}
+.ai-disclaimer{background:#fff7ed;border:1px solid rgba(245,158,11,0.14);padding:10px;border-radius:8px;color:#92400e;font-size:13px}
+.ai-disclaimer strong{color:#78350f}
 
 #cameraContainer{margin-top:16px;max-width:640px;overflow:hidden;position:relative;padding:10px;background:linear-gradient(180deg,#ffffff,#fbfdff);border-radius:10px}
 #cameraVideo{width:100%;display:block;border:1px solid rgba(2,6,23,0.06);border-radius:8px}
@@ -195,4 +195,43 @@ button{cursor:pointer;font-size:16px}
 		padding: 6px 10px;
 		font-size: 13px;
 	}
+}
+
+/* Health gauge styles (appended) */
+.gauge-wrap{display:flex;flex-direction:column;align-items:center;font-family:var(--font-family);}
+.gauge-svg{width:220px;height:120px}
+.gauge-center-label{font-size:16px;color:#0b1320;font-weight:700;margin-top:8px}
+.gauge-subtext{font-size:12px;color:#64748b;margin-top:4px;text-align:center}
+.gauge-legend{display:flex;gap:8px;justify-content:center;margin-top:8px}
+.gauge-legend .item{font-size:12px;color:#475569}
+
+/* Vertical meter styles replacing the semicircular gauge */
+.vertical-meter-wrap{display:flex;flex-direction:column;align-items:center;font-family:var(--font-family);gap:8px}
+.vertical-meter-track{width:56px;height:220px;border-radius:12px;border:1px solid rgba(2,6,23,0.06);background:#f1f5f9;overflow:hidden;display:flex;align-items:flex-end}
+.vertical-meter-fill{width:100%;height:0%;background:linear-gradient(180deg,#0ea5a3,#059e93);transition:height 0.3s ease}
+.vertical-meter-label{font-size:16px;color:#0b1320;font-weight:700}
+.vertical-meter-subtext{font-size:12px;color:#64748b;text-align:center;max-width:160px}
+
+@media (max-width:900px){
+	.vertical-meter-track{width:46px;height:180px}
+}
+
+/* Layout for result: image left, summary + gauge right */
+.result-layout{display:flex;gap:18px;align-items:flex-start}
+.result-image img{max-width:100%;height:auto;border:1px solid rgba(2,6,23,0.06);padding:6px;border-radius:8px;background:#fafafa}
+.result-right{display:flex;flex-direction:column}
+
+@media (max-width:900px){
+	.result-layout{flex-direction:column}
+	.result-image{max-width:100%}
+}
+
+/* New result layout: image + side gauge, with summary below */
+.result-top{display:flex;gap:18px;align-items:flex-start}
+.result-side{display:flex;flex-direction:column;align-items:center}
+.result-bottom{margin-top:12px}
+
+@media (max-width:900px){
+	.result-top{flex-direction:column}
+	.result-side{width:100%;flex-direction:row;justify-content:flex-start;gap:12px}
 }
