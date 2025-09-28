@@ -1,0 +1,12 @@
+Summary:
+I’m unable to view the uploaded image (capture.jpg) from this chat, so I can’t identify specific findings. Common things I would look for in a photo are cavities/dark spots, gum redness/bleeding, plaque/tartar buildup, chips/fractures, or misalignment. If you describe symptoms (pain, sensitivity, bleeding) I can narrow this.
+
+Risk:
+Medium — because I can’t evaluate the photo, there’s uncertainty. If you have pain, swelling, pus, increasing sensitivity, or persistent bleeding the risk is high and needs prompt care; if you have no symptoms and the photo was for a routine check, risk is likely low.
+
+Actions:
+1. Re-upload the photo (clear, well-lit, close-up of the problem area; one with lips retracted and one with teeth biting together).  
+2. Tell me any symptoms (pain, sensitivity to hot/cold, bleeding, bad taste, swelling).  
+3. If you have severe pain, swelling, fever, or pus, seek urgent dental care or ER now.  
+4. For routine issues, schedule a dental exam/cleaning within 4–8 weeks.  
+5. If you want, re-upload and I’ll give a photo-based assessment and next steps.

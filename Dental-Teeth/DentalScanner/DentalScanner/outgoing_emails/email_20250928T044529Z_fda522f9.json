@@ -1,0 +1,11 @@
+{
+  "from": null,
+  "to": "nathanfleck2007@gmail.com",
+  "subject": "Dental images from Open Wide",
+  "body": "Dear Provider,\n\nA patient has submitted dental images via the Open Wide app. See attachments for the original and annotated images.\n\nPatient contact email: nathanfleck2007@gmail.com\nPatient concerns:\nI have really sharp pain in the my back right bottom molars\n\nThis message was sent from the Open Wide app.",
+  "attachments": [
+    "cavity.jpg",
+    "output.jpg"
+  ],
+  "note": "Saved locally because SMTP_SERVER/SMTP_USER/SMTP_PASSWORD not configured."
+}
