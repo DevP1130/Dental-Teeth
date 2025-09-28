@@ -1,0 +1,12 @@
+Summary:
+- Image filename and automated review flagged ~6 suspicious areas (avg confidence 0.67) consistent with possible dental caries (occlusal or interproximal), enamel demineralization, or staining; some areas may be existing restorations or early decay.  
+- Depth and pulpal involvement cannot be assessed from a photo alone.
+
+Risk:
+- Medium — multiple suspicious sites increase likelihood of active decay and progression to larger cavities or sensitivity/infection if untreated; confidence is moderate and radiographs/clinical exam are needed to confirm severity.
+
+Actions:
+- Book a dental exam with bitewing radiographs within 2–4 weeks (sooner if you have pain, swelling, or sensitivity).  
+- Professional cleaning and topical fluoride or sealants if lesions are early.  
+- If decay is confirmed, expect small restorations (fillings) or more extensive treatment depending on depth.  
+- Improve home care (brushing twice daily with fluoride toothpaste, flossing, reduce sugary snacks) and contact your dentist urgently for acute symptoms.

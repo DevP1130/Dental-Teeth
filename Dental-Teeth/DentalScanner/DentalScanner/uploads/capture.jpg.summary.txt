@@ -1,0 +1,11 @@
+Summary:
+The uploaded photo had 18 detected objects (avg confidence 0.73). From the image there may be signs of tooth crowding/misalignment, surface staining or plaque, and possible early decay or white-spot lesions; gingival redness or recession might also be present. Image-based review is limited — this is not a definitive diagnosis.
+
+Risk:
+Medium — potential early caries and gingival inflammation that can progress if untreated. Uncertainty is moderate because clinical exam and radiographs are needed to confirm findings.
+
+Actions:
+1. Book an in-person dental exam with bitewing radiographs to evaluate interproximal decay and restorative needs.  
+2. Professional cleaning if plaque/calculus is present and targeted treatment (fillings/sealants) if decay is confirmed.  
+3. Improve home care: twice-daily fluoride toothpaste, daily interdental cleaning (floss or interdental brushes).  
+4. Seek urgent care if you develop pain, swelling, fever, or increasing sensitivity.
