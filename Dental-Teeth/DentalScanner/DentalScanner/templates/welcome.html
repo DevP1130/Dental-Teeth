@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open Wide — Welcome</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="container">
+  <h1 style="font-size:20px;text-align:left;margin-bottom:8px">Welcome to Open Wide</h1>
+      <p style="text-align:center;color:#555;margin-top:0">Please enter your details to continue</p>
+
+      <form id="welcomeForm" style="max-width:520px;margin:18px auto;display:grid;gap:12px">
+        <input id="firstName" name="firstName" placeholder="First name" required />
+        <input id="lastName" name="lastName" placeholder="Last name" required />
+        <input id="provider" name="provider" placeholder="Healthcare provider" required />
+        <input id="dob" name="dob" type="date" placeholder="Date of birth" required />
+  <input id="patientEmail" name="patientEmail" type="email" placeholder="Your email" required />
+  <input id="doctorEmail" name="doctorEmail" type="email" placeholder="Doctor's email" required />
+
+        <div style="display:flex;gap:10px;align-items:center">
+          <button id="enterBtn" class="btn-primary" type="button" disabled>Enter</button>
+        </div>
+        <div class="small-muted" style="margin-top:6px">We only store these details locally for the session. No PHI is sent to external services.</div>
+      </form>
+    </div>
+
+      <script>
+      const first = document.getElementById('firstName')
+      const last = document.getElementById('lastName')
+      const prov = document.getElementById('provider')
+      const dob = document.getElementById('dob')
+      const patientEmail = document.getElementById('patientEmail')
+      const doctorEmail = document.getElementById('doctorEmail')
+      const enter = document.getElementById('enterBtn')
+
+      function check(){
+        if(first.value.trim() && last.value.trim() && prov.value.trim() && dob.value && patientEmail.value.trim() && doctorEmail.value.trim()) enter.disabled = false
+        else enter.disabled = true
+      }
+
+      first.addEventListener('input', check)
+      last.addEventListener('input', check)
+      prov.addEventListener('input', check)
+      dob.addEventListener('change', check)
+      patientEmail.addEventListener('input', check)
+      doctorEmail.addEventListener('input', check)
+
+      enter.addEventListener('click', ()=>{
+        // store basic info in sessionStorage for later use if needed
+        sessionStorage.setItem('openwide_first', first.value.trim())
+        sessionStorage.setItem('openwide_last', last.value.trim())
+        sessionStorage.setItem('openwide_provider', prov.value.trim())
+        sessionStorage.setItem('openwide_dob', dob.value)
+        sessionStorage.setItem('openwide_patient_email', patientEmail.value.trim())
+        sessionStorage.setItem('openwide_doctor_email', doctorEmail.value.trim())
+        
+        // For mobile compatibility, include terms acceptance in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const termsAccepted = urlParams.get('terms_accepted');
+        const uploadUrl = termsAccepted ? '/upload-page?terms_accepted=true' : '/upload-page';
+        
+        window.location.href = uploadUrl;
+      })
+    </script>
+  </body>
+</html>
