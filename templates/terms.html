@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Terms of Service — Dental Scanner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1 style="font-size:24px;text-align:center;margin-bottom:24px">Terms of Service & Medical Disclaimer</h1>
+      
+      <div style="max-width:800px;margin:0 auto;padding:0 16px;">
+        <div style="background-color:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:16px;margin-bottom:24px;">
+          <h2 style="margin-top:0;color:#856404;font-size:18px;">⚠️ Important Medical Disclaimer</h2>
+          <p style="margin-bottom:0;color:#856404;line-height:1.6;">
+            This application is for informational and educational purposes only. It does not provide medical diagnosis, treatment, or professional medical advice. The AI analysis and annotations are tools to assist healthcare providers and should not be used as a substitute for professional dental examination, diagnosis, or treatment by a qualified dentist or healthcare professional.
+          </p>
+        </div>
+
+        <div style="margin-bottom:24px;">
+          <h2 style="font-size:20px;margin-top:0;margin-bottom:12px;">Medical Disclaimer</h2>
+          <ul style="line-height:1.8;color:#333;padding-left:20px;">
+            <li><strong>Not a Medical Service:</strong> This application does not provide medical services, diagnosis, or treatment recommendations.</li>
+            <li><strong>No Doctor-Patient Relationship:</strong> Use of this application does not establish a doctor-patient relationship.</li>
+            <li><strong>Professional Consultation Required:</strong> All dental concerns should be evaluated by a qualified dentist or healthcare provider in person.</li>
+            <li><strong>Emergency Situations:</strong> If you have a dental emergency, contact your dentist or seek immediate medical attention. Do not rely on this application for emergency situations.</li>
+            <li><strong>Accuracy Disclaimer:</strong> While we strive for accuracy, the AI analysis and annotations are provided "as is" without warranty of any kind, express or implied.</li>
+            <li><strong>Limitation of Liability:</strong> The application providers, developers, and affiliates are not liable for any decisions made based on the information provided by this application.</li>
+          </ul>
+        </div>
+
+        <div style="margin-bottom:24px;">
+          <h2 style="font-size:20px;margin-top:0;margin-bottom:12px;">Terms of Use</h2>
+          <ul style="line-height:1.8;color:#333;padding-left:20px;">
+            <li><strong>User Responsibility:</strong> You are responsible for ensuring that you have proper authorization to upload and process any images.</li>
+            <li><strong>Data Privacy:</strong> Images and data are processed for analysis purposes. We do not store or retain your images beyond the session.</li>
+            <li><strong>Acceptable Use:</strong> You agree to use this application only for lawful purposes and in accordance with these terms.</li>
+            <li><strong>No Warranties:</strong> The application is provided "as is" without warranties of any kind.</li>
+            <li><strong>Modifications:</strong> We reserve the right to modify or discontinue the service at any time.</li>
+          </ul>
+        </div>
+
+        <div style="margin-bottom:32px;padding:20px;background-color:#f8f9fa;border-radius:8px;border:1px solid #dee2e6;">
+          <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;">
+            <input type="checkbox" id="agreeCheckbox" style="margin-top:4px;width:20px;height:20px;cursor:pointer;flex-shrink:0;">
+            <span style="line-height:1.6;color:#333;">
+              <strong>I acknowledge that I have read and understood the Terms of Service and Medical Disclaimer.</strong> I understand that this application does not provide medical diagnosis or treatment, and that I should consult with a qualified healthcare professional for any dental concerns. I agree to use this application in accordance with the terms stated above.
+            </span>
+          </label>
+        </div>
+
+        <div style="text-align:center;">
+          <button id="acceptBtn" class="btn-primary" disabled style="min-width:200px;font-size:16px;padding:12px 24px;">
+            I Agree — Continue
+          </button>
+          <div style="margin-top:16px;">
+            <a href="#" id="declineLink" style="color:#6c757d;text-decoration:underline;">I Do Not Agree — Exit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const agreeCheckbox = document.getElementById('agreeCheckbox')
+      const acceptBtn = document.getElementById('acceptBtn')
+      const declineLink = document.getElementById('declineLink')
+
+      agreeCheckbox.addEventListener('change', () => {
+        acceptBtn.disabled = !agreeCheckbox.checked
+      })
+
+      acceptBtn.addEventListener('click', () => {
+        if (agreeCheckbox.checked) {
+          // Store agreement acceptance in sessionStorage
+          sessionStorage.setItem('terms_accepted', 'true')
+          window.location.href = '/welcome'
+        }
+      })
+
+      declineLink.addEventListener('click', (e) => {
+        e.preventDefault()
+        if (confirm('You must agree to the Terms of Service to use this application. Do you want to exit?')) {
+          window.close() || (window.location.href = 'about:blank')
+        }
+      })
+    </script>
+  </body>
+</html>

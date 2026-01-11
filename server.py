@@ -49,6 +49,12 @@ if VENV_PY is None:
 
 
 @app.route("/", methods=["GET"])
+def terms():
+    # show terms of service and medical disclaimer
+    return render_template("terms.html")
+
+
+@app.route("/welcome", methods=["GET"])
 def welcome():
     # show a welcome form that collects basic user info before proceeding
     return render_template("welcome.html")
@@ -266,6 +272,7 @@ def send_report():
         patient_email = data.get('patient_email')
         doctor_email = data.get('doctor_email')
         ai_summary = data.get('ai_summary', '')
+        patient_concerns = data.get('patient_concerns', '').strip()
         
         if not patient_email or not doctor_email:
             return jsonify({"success": False, "error": "Patient and doctor emails are required"}), 400
@@ -293,17 +300,30 @@ def send_report():
         msg['To'] = f"{patient_email}, {doctor_email}"
         msg['Subject'] = 'Dental Scan Report - Annotated Image & AI Analysis'
         
-        # Escape HTML in AI summary to prevent injection
+        # Escape HTML to prevent injection
         from html import escape
         ai_summary_escaped = escape(ai_summary) if ai_summary else 'No AI analysis available.'
         ai_summary_html = ai_summary_escaped.replace('\n', '<br>')
+        patient_concerns_escaped = escape(patient_concerns) if patient_concerns else ''
+        patient_concerns_html = patient_concerns_escaped.replace('\n', '<br>')
         
-        # Create email body with AI summary
+        # Create email body with AI summary and patient concerns
+        patient_concerns_section = ''
+        if patient_concerns:
+            patient_concerns_section = f"""
+            <h3 style="color: #020617; margin-top: 24px;">Patient Concerns</h3>
+            <div style="background-color: #e3f2fd; padding: 16px; border-radius: 8px; margin: 12px 0; border-left: 4px solid #2196f3;">
+              <p style="margin: 0; white-space: pre-wrap;">{patient_concerns_html}</p>
+            </div>
+            """
+        
         body_html = f"""
         <html>
           <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
             <h2 style="color: #020617;">Dental Scan Report</h2>
             <p>Please find your dental scan analysis report below.</p>
+            
+            {patient_concerns_section}
             
             <h3 style="color: #020617; margin-top: 24px;">AI Analysis</h3>
             <div style="background-color: #f8f9fa; padding: 16px; border-radius: 8px; margin: 12px 0; white-space: pre-wrap;">{ai_summary_html}</div>
@@ -317,12 +337,13 @@ def send_report():
         </html>
         """
         
+        patient_concerns_text = f"Patient Concerns:\n{patient_concerns}\n\n" if patient_concerns else ""
         body_text = f"""
 Dental Scan Report
 
 Please find your dental scan analysis report below.
 
-AI Analysis:
+{patient_concerns_text}AI Analysis:
 {ai_summary if ai_summary else 'No AI analysis available.'}
 
 Annotated Image:

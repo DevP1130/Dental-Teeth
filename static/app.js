@@ -340,6 +340,10 @@ if (sendReportBtn) {
     // Use stored AI summary text
     const aiSummaryText = currentAISummary || (aiSummaryDiv ? aiSummaryDiv.innerText || aiSummaryDiv.textContent : '')
     
+    // Get patient concerns from the textarea
+    const concernTextarea = document.getElementById('concernText')
+    const patientConcerns = concernTextarea ? concernTextarea.value.trim() : ''
+    
     // Disable button and show loading state
     sendReportBtn.disabled = true
     sendReportBtn.textContent = 'Sending Report...'
@@ -357,7 +361,8 @@ if (sendReportBtn) {
         body: JSON.stringify({
           patient_email: patientEmail,
           doctor_email: doctorEmail,
-          ai_summary: aiSummaryText
+          ai_summary: aiSummaryText,
+          patient_concerns: patientConcerns
         })
       })
       
