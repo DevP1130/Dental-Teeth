@@ -48,60 +48,113 @@ if (uploadBtn) uploadBtn.addEventListener('click', async ()=>{
   uploadBtn.disabled = true
   uploadBtn.textContent = 'Processing...'
   messages.textContent = 'Uploading and processing image...'
-  try{
-    const res = await fetch('/upload', {method:'POST', body: fd, headers: {'X-Requested-With':'XMLHttpRequest'}})
-    const data = await res.json()
-    if (!data.success){
-      messages.textContent = 'Error: ' + (data.error || 'Upload failed')
+
+  // Get progress bar elements
+  const progressContainer = document.getElementById('progressContainer')
+  const progressBar = document.getElementById('progressBar')
+  const progressPercent = document.getElementById('progressPercent')
+
+  // Show progress bar
+  if (progressContainer) progressContainer.style.display = 'block'
+  if (progressBar) progressBar.style.width = '0%'
+  if (progressPercent) progressPercent.textContent = '0%'
+
+  // Use XMLHttpRequest to track upload progress
+  const xhr = new XMLHttpRequest()
+
+  xhr.upload.addEventListener('progress', (e) => {
+    if (e.lengthComputable) {
+      const percentComplete = Math.round((e.loaded / e.total) * 100)
+      if (progressBar) progressBar.style.width = percentComplete + '%'
+      if (progressPercent) progressPercent.textContent = percentComplete + '%'
+    }
+  })
+
+  xhr.addEventListener('load', () => {
+    // Hide progress bar after completion
+    if (progressContainer) progressContainer.style.display = 'none'
+
+    if (xhr.status === 200) {
+      try {
+        const data = JSON.parse(xhr.responseText)
+        if (!data.success){
+          messages.textContent = 'Error: ' + (data.error || 'Upload failed')
+          messages.style.color = '#dc2626'
+          uploadBtn.disabled = false
+          uploadBtn.textContent = 'Upload and Scan'
+          return
+        }
+        messages.textContent = 'Processing complete!'
+        messages.style.color = '#16a34a'
+        // show the result image
+        if (resultImg) resultImg.src = data.result_url + '?_=' + Date.now()
+        // store uploaded filename for reference
+        if (resultDiv) {
+          resultDiv.dataset.uploadedFilename = data.uploaded_filename || ''
+          resultDiv.style.display = 'block'
+        }
+        // display AI summary if present
+        const emailReportSection = document.getElementById('emailReportSection')
+        if (aiSummaryDiv){
+          if (data.ai_summary){
+            // Store AI summary text for email
+            currentAISummary = data.ai_summary
+            // Format the summary with better styling - preserve line breaks
+            const formattedSummary = data.ai_summary.replace(/\n/g, '<br>')
+            aiSummaryDiv.innerHTML = '<h3 style="margin-top:0; margin-bottom:12px; color:#020617; font-size:18px;">AI Analysis</h3><div style="color:#475569; line-height:1.6; white-space:pre-wrap;">' + escapeHtml(data.ai_summary).replace(/\n/g, '<br>') + '</div>'
+            aiSummaryDiv.style.display = 'block'
+            // Show the "Next" button after AI summary is displayed
+            if (emailReportSection) emailReportSection.style.display = 'block'
+          } else if (data.ai_summary_error){
+            currentAISummary = '' // No AI summary available
+            aiSummaryDiv.innerHTML = '<h3 style="margin-top:0; margin-bottom:12px; color:#020617;">AI Analysis</h3><div style="color:#dc2626;">' + escapeHtml(data.ai_summary_error) + '</div>'
+            aiSummaryDiv.style.display = 'block'
+            // Still show Next button even if AI summary failed
+            if (emailReportSection) emailReportSection.style.display = 'block'
+          } else {
+            currentAISummary = ''
+            aiSummaryDiv.style.display = 'none'
+            aiSummaryDiv.innerHTML = ''
+            if (emailReportSection) emailReportSection.style.display = 'none'
+          }
+        } else {
+          if (emailReportSection) emailReportSection.style.display = 'none'
+        }
+        uploadBtn.disabled = false
+        uploadBtn.textContent = 'Upload and Scan'
+      } catch (err) {
+        messages.textContent = 'Error: ' + (err.message || 'Failed to parse response')
+        messages.style.color = '#dc2626'
+        uploadBtn.disabled = false
+        uploadBtn.textContent = 'Upload and Scan'
+      }
+    } else {
+      messages.textContent = 'Error: Upload failed (Status ' + xhr.status + ')'
       messages.style.color = '#dc2626'
       uploadBtn.disabled = false
       uploadBtn.textContent = 'Upload and Scan'
-      return
     }
-    messages.textContent = 'Processing complete!'
-    messages.style.color = '#16a34a'
-  // show the result image
-  if (resultImg) resultImg.src = data.result_url + '?_=' + Date.now()
-  // store uploaded filename for reference
-  if (resultDiv) {
-    resultDiv.dataset.uploadedFilename = data.uploaded_filename || ''
-    resultDiv.style.display = 'block'
-  }
-    // display AI summary if present
-    const emailReportSection = document.getElementById('emailReportSection')
-    if (aiSummaryDiv){
-      if (data.ai_summary){
-        // Store AI summary text for email
-        currentAISummary = data.ai_summary
-        // Format the summary with better styling - preserve line breaks
-        const formattedSummary = data.ai_summary.replace(/\n/g, '<br>')
-        aiSummaryDiv.innerHTML = '<h3 style="margin-top:0; margin-bottom:12px; color:#020617; font-size:18px;">AI Analysis</h3><div style="color:#475569; line-height:1.6; white-space:pre-wrap;">' + escapeHtml(data.ai_summary).replace(/\n/g, '<br>') + '</div>'
-        aiSummaryDiv.style.display = 'block'
-        // Show the "Next" button after AI summary is displayed
-        if (emailReportSection) emailReportSection.style.display = 'block'
-      } else if (data.ai_summary_error){
-        currentAISummary = '' // No AI summary available
-        aiSummaryDiv.innerHTML = '<h3 style="margin-top:0; margin-bottom:12px; color:#020617;">AI Analysis</h3><div style="color:#dc2626;">' + escapeHtml(data.ai_summary_error) + '</div>'
-        aiSummaryDiv.style.display = 'block'
-        // Still show Next button even if AI summary failed
-        if (emailReportSection) emailReportSection.style.display = 'block'
-      } else {
-        currentAISummary = ''
-        aiSummaryDiv.style.display = 'none'
-        aiSummaryDiv.innerHTML = ''
-        if (emailReportSection) emailReportSection.style.display = 'none'
-      }
-    } else {
-      if (emailReportSection) emailReportSection.style.display = 'none'
-    }
-    uploadBtn.disabled = false
-    uploadBtn.textContent = 'Upload and Scan'
-  }catch(err){
-    messages.textContent = 'Error: ' + (err.message || 'Network error')
+  })
+
+  xhr.addEventListener('error', () => {
+    if (progressContainer) progressContainer.style.display = 'none'
+    messages.textContent = 'Error: Network error'
     messages.style.color = '#dc2626'
     uploadBtn.disabled = false
     uploadBtn.textContent = 'Upload and Scan'
-  }
+  })
+
+  xhr.addEventListener('abort', () => {
+    if (progressContainer) progressContainer.style.display = 'none'
+    messages.textContent = 'Upload cancelled'
+    messages.style.color = '#dc2626'
+    uploadBtn.disabled = false
+    uploadBtn.textContent = 'Upload and Scan'
+  })
+
+  xhr.open('POST', '/upload')
+  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+  xhr.send(fd)
 })
 
 // show selected filename when user picks a file

@@ -60,6 +60,16 @@
 
       <div id="messages"></div>
 
+      <div id="progressContainer" style="display:none; margin-top:16px; max-width:640px;">
+        <div style="margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:14px; color:#475569;">Uploading...</span>
+          <span id="progressPercent" style="font-size:14px; font-weight:600; color:#0ea5a3;">0%</span>
+        </div>
+        <div class="progress-bar-container">
+          <div id="progressBar" class="progress-bar-fill"></div>
+        </div>
+      </div>
+
       <div id="result" style="display:none;">
         <h2>Result</h2>
         <img id="resultImg" src="" alt="output">

@@ -24,6 +24,7 @@
 
         <div style="display:flex;gap:10px;align-items:center">
           <button id="enterBtn" class="btn-primary" type="button" disabled>Enter</button>
+          <button id="backToTermsBtn" class="btn-secondary" type="button">Back to Terms</button>
         </div>
         <div class="small-muted" style="margin-top:6px">We only store these details locally for the session. No PHI is sent to external services.</div>
       </form>
@@ -59,6 +60,11 @@
         sessionStorage.setItem('openwide_patient_email', patientEmail.value.trim())
         sessionStorage.setItem('openwide_doctor_email', doctorEmail.value.trim())
         window.location.href = '/upload-page'
+      })
+
+      const backToTermsBtn = document.getElementById('backToTermsBtn')
+      backToTermsBtn.addEventListener('click', ()=>{
+        window.location.href = '/terms'
       })
     </script>
   </body>
